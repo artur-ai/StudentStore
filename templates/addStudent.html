@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати студента</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background: grey;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: grey;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Додати студента</h1>
+
+<form action="/addStudent.html" method="post">
+    <label>Ім’я:</label>
+    <input type="text" name="firstName" required>
+
+    <label>Прізвище:</label>
+    <input type="text" name="lastName" required>
+
+    <label>Курс:</label>
+    <input type="number" name="course" min="1" max="6" required>
+
+    <label>Дата народження:</label>
+    <input type="date" name="birthday" required>
+
+    <button type="submit" class="btn">Зберегти</button>
+</form>
+
+</body>
+</html>

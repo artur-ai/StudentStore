@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Список студентів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: grey;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: grey;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color:grey;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список студентів</h1>
+
+<table>
+    <tr>
+        <th>Ім’я</th>
+        <th>Прізвище</th>
+        <th>Курс</th>
+        <th>Дата народження</th>
+    </tr>
+    <#list students as student>
+    <tr>
+        <td>${student.firstName}</td>
+        <td>${student.lastName}</td>
+        <td>${student.course}</td>
+        <td>${student.birthday}</td>
+    </tr>
+</#list>
+</table>
+
+<div class="btn-container">
+    <a href="/addStudent.html" class="btn">➕ Додати студента</a>
+</div>
+
+</body>
+</html>
