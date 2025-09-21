@@ -1,7 +1,7 @@
 package com.maiboroda.servlets;
 
-import com.maiboroda.StudentFactory.Student;
-import com.maiboroda.datBase.StudentDao;
+import com.maiboroda.studentModel.Student;
+import com.maiboroda.datebase.StudentDao;
 import com.maiboroda.templater.PageGenerator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +26,7 @@ public class AddStudentServlet extends HttpServlet {
         Map<String, Object> params = new HashMap<>();
         String page = PageGenerator.instance().getPage("addStudent.html", params);
         response.getWriter().println(page);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPost(HttpServletRequest request,
@@ -36,14 +36,16 @@ public class AddStudentServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         int course = Integer.parseInt(request.getParameter("course"));
-        String birthday = request.getParameter("birthday");
-
-        try {
-            studentDao.saveStudents(new Student(firstName, lastName, course, birthday));
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
+        if (course < 1 || course > 5) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Course must be from 1 to 5");
         }
 
-        response.sendRedirect("/index.html");
+        String birthday = request.getParameter("birthday");
+
+        studentDao.saveStudents(new Student(firstName, lastName, course, birthday));
+
+
+        response.sendRedirect("/students");
+        response.setStatus(HttpServletResponse.SC_CREATED);
     }
 }

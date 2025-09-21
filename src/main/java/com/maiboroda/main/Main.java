@@ -1,6 +1,6 @@
 package com.maiboroda.main;
 
-import com.maiboroda.datBase.StudentDao;
+import com.maiboroda.datebase.StudentDao;
 import com.maiboroda.servlets.AddStudentServlet;
 import com.maiboroda.servlets.StudentServlet;
 import org.eclipse.jetty.server.Server;
@@ -24,8 +24,8 @@ public class Main {
 
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(new StudentServlet(studentDao)), "/index.html");
-        context.addServlet(new ServletHolder(new AddStudentServlet(studentDao)), "/addStudent.html");
+        context.addServlet(new ServletHolder(new StudentServlet(studentDao)), "/students");
+        context.addServlet(new ServletHolder(new AddStudentServlet(studentDao)), "/students/add");
 
         server.setHandler(context);
         server.start();

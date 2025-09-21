@@ -1,8 +1,13 @@
-package com.maiboroda.datBase;
+package com.maiboroda.datebase;
 
-import com.maiboroda.StudentFactory.Student;
+import com.maiboroda.studentModel.Student;
 
-import java.sql.*;
+import java.sql.Connection;
+
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +18,7 @@ public class StudentDao {
         this.connection = connection;
     }
 
-    public void createTable() throws SQLException {
+    public void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS students (" +
                 "id SERIAL PRIMARY KEY, " +
                 "firstName VARCHAR(100) NOT NULL, " +
@@ -23,23 +28,26 @@ public class StudentDao {
                 ")";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new RuntimeException("Error with creating dataBase");
         }
     }
 
 
-    public void saveStudents(Student student) throws SQLException {
+    public void saveStudents(Student student) {
         String sql = "INSERT INTO students(firstName, lastName, course, birthday) VALUES (?, ?, ?, ?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, student.getFirstName() );
             statement.setString(2, student.getLastName());
             statement.setInt(3, student.getCourse());
             statement.setDate(4, java.sql.Date.valueOf(student.getBirthday()));
-
             statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new RuntimeException("Error with saving students to bd");
         }
     }
 
-    public List<Student> getAllStudents() throws SQLException {
+    public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM students";
         try (Statement statement = connection.createStatement();
@@ -53,6 +61,8 @@ public class StudentDao {
                 );
                 students.add(student);
             }
+        } catch (SQLException exception) {
+            throw new RuntimeException("Error with getting students");
         }
         return students;
     }

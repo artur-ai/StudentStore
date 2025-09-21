@@ -1,10 +1,10 @@
-package com.maiboroda.StudentFactory;
+package com.maiboroda.studentModel;
 
 public class Student {
-    public String firstName;
-    public String lastName;
-    public int course;
-    public String birthday;
+    private String firstName;
+    private String lastName;
+    private int course;
+    private String birthday;
 
     public Student (String firstName, String lastName, int course, String birthday) {
         this.birthday = birthday;
